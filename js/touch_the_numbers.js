@@ -4,6 +4,7 @@ const timer = document.getElementById("timer");
 const start = document.getElementById("start");
 const stop = document.getElementById("stop");
 const reset = document.getElementById("reset");
+const backBtn = document.getElementById("btn99");
 
 let startTime; // Startボタンクリック時の時刻 [cite: 580]
 let timeoutid; // ID [cite: 583]
@@ -54,6 +55,19 @@ window.addEventListener("DOMContentLoaded", function () {
     let squaresBox = document.getElementById("squaresBox");
     squaresBox.classList.add("js-unclickable");
     squaresBox.style.backgroundColor = "grey";
+    
+    // Back button event listener
+    backBtn.addEventListener("click", function() {
+        history.back();
+    });
+    
+    // Support Enter key for back button
+    backBtn.addEventListener("keypress", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            history.back();
+        }
+    });
 }, false);
 
 // squareをクリックしたときにイベント発火(はっか) [cite: 686]
@@ -61,6 +75,15 @@ window.addEventListener("DOMContentLoaded", function () {
 squaresArray.forEach(function (square) {
     square.addEventListener("click", () => {
         isSelect(square);
+    });
+    
+    // Support keyboard navigation for accessibility
+    square.setAttribute("tabindex", "0");
+    square.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            isSelect(square);
+        }
     });
 });
 
@@ -179,6 +202,14 @@ start.addEventListener("click", function () {
     countUp();
 }, false);
 
+// Support keyboard for Start button
+start.addEventListener("keypress", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        start.click();
+    }
+}, false);
+
 // Stopボタンクリック [cite: 973]
 stop.addEventListener("click", function () {
     let squaresBox = document.getElementById("squaresBox");
@@ -190,6 +221,14 @@ stop.addEventListener("click", function () {
     let music = new Audio(gameSound[1]);
     music.currentTime = 0;
     music.play(); //再生 [cite: 1000]
+}, false);
+
+// Support keyboard for Stop button
+stop.addEventListener("keypress", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        stop.click();
+    }
 }, false);
 
 // Resetボタンクリック [cite: 1025]
@@ -215,6 +254,14 @@ reset.addEventListener("click", function () {
         document.getElementById(w_id).innerHTML = "";
     });
 });
+
+// Support keyboard for Reset button
+reset.addEventListener("keypress", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        reset.click();
+    }
+}, false);
 
 // タイマー 
 function countUp() {

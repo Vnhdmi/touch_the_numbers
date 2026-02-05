@@ -77,8 +77,22 @@ header {
     width: calc(250px/4);
     height: calc(250px/4);
     border: solid 2px #333;
-    color: #4a488e;
+    color: #1a1a4d;
     font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+}
+
+.square:hover:not(.js-unclickable) {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+    box-shadow: inset 0 0 0 2px #4a488e;
+}
+
+.square:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 3px rgba(255, 255, 0, 0.8), 0 0 0 3px rgba(255, 255, 0, 0.5);
 }
 
 /* protect: ホバーやクリックなどのマウスイベントを無効(むこう)にする*/ 
@@ -89,13 +103,32 @@ header {
 /* ボタンのスタイル */
 .btn {
     margin-top: 8px;
-    padding: 12px;
+    padding: 12px 20px;
     border-radius: 10px;
     color: whitesmoke;
-    font-size: 24px;
-    background: rgb(26, 212, 212);
+    font-size: 18px;
+    background: linear-gradient(135deg, rgb(26, 212, 212), rgb(0, 190, 190));
     user-select: none;
-    cursor: pointer; /*カーソルをポインターの形(かたち)にする*/ 
+    cursor: pointer; /*カーソルをポインターの形(かたち)にする*/
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, rgb(0, 190, 190), rgb(0, 160, 160));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn:focus {
+    outline: none;
+    border-color: #ffff00;
+    box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.3);
 }
 
 .back {
@@ -106,7 +139,8 @@ header {
 /* ボタンエリア */
 .btn-container {
     padding-top: 40px;
-    margin: 0px 100px 5px;
+    margin: 0px auto;
+    max-width: 600px;
     font-size: 1em;
     font-weight: bold;
 }
@@ -114,17 +148,39 @@ header {
 .btn-area {
     display: flex;
     justify-content: space-around;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .btn1 {
-    padding: 10px;
+    padding: 12px 20px;
     border-radius: 10px;
-    font-size: 24px;
+    font-size: 20px;
     color: whitesmoke;
-    background: grey;
+    background: linear-gradient(135deg, #4a4a4a, #6a6a6a);
     border: solid 2px #333;
     user-select: none;
-    cursor: pointer; /*カーソルをポインターの形(かたち)にする*/ 
+    cursor: pointer; /*カーソルをポインターの形(かたち)にする*/
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 100px;
+}
+
+.btn1:hover:not(.js-inactive) {
+    background: linear-gradient(135deg, #555, #777);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn1:active:not(.js-inactive) {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn1:focus {
+    outline: none;
+    border-color: #ffff00;
+    box-shadow: 0 0 0 3px rgba(255, 255, 0, 0.3);
 }
 
 .js-inactive {
@@ -134,14 +190,14 @@ header {
 /* footer */
 footer > p {
     position: absolute; /** 対位置*/ 
-    bottom: 5px; /*下に固定*/ 
+    bottom: 0; /*下に固定*/ 
     width: 100%;
-    margin: 8px;
-    padding: 1px;
+    margin: 0;
+    padding: 15px;
     color: whitesmoke;
-    font: 16px Rajdhani;
+    font: 14px Rajdhani;
     text-align: center;
-    background: rgba(1, 24, 31, 0.7);
+    background: linear-gradient(180deg, rgba(1, 24, 31, 0.9), rgba(1, 24, 31, 1));
 }
 
 /* タイマー表示 */
@@ -150,20 +206,25 @@ footer > p {
     flex-flow: row wrap;
     margin: 0px;
     justify-content: center;
-    background: #ffd347;
-    line-height: 100px;
+    background: linear-gradient(135deg, #ffd347, #ffb800);
+    line-height: 80px;
     font-size: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .time-item {
-    margin: 10px 0px;
-    height: 100px;
-    line-height: 100px;
+    margin: 10px 10px;
+    height: 80px;
+    line-height: 80px;
     font-size: 25px;
+    color: #333;
 }
 
 #timer {
-    font-size: 50px;
+    font-size: 48px;
+    font-weight: bold;
+    color: #1a1a4d;
 }
 
 .timer-fontColor.hidden {
@@ -175,17 +236,59 @@ footer > p {
 }
 
 /* mobileのときのスタイル */ 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
     .wrapper {
-        padding-bottom: 23px; /*+footer+paddingの高さ*/ 
+        padding-bottom: 80px; /*+footer+paddingの高さ*/ 
     }
     .btn-container {
-        padding-top: 2px;
+        padding-top: 20px;
+        margin: 0px 10px;
+    }
+    .btn-area {
+        gap: 10px;
     }
     header {
-        font-size: 34px;
+        font-size: 28px;
     }
     #msgtext {
-        font-size: 38px;
+        font-size: 28px;
+    }
+    .time-item {
+        margin: 5px 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .wrapper {
+        padding-bottom: 80px; /*+footer+paddingの高さ*/ 
+    }
+    .btn-container {
+        padding-top: 10px;
+        margin: 0px 5px;
+    }
+    .btn-area {
+        flex-direction: column;
+        gap: 8px;
+    }
+    header {
+        font-size: 24px;
+    }
+    #msgtext {
+        font-size: 20px;
+    }
+    .btn1 {
+        font-size: 18px;
+        padding: 10px 15px;
+    }
+    .time-container {
+        line-height: 60px;
+    }
+    .time-item {
+        height: 60px;
+        line-height: 60px;
+        font-size: 20px;
+    }
+    #timer {
+        font-size: 36px;
     }
 }
